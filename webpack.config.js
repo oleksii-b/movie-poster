@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 
-
 const bundleFileName = 'bundle.js';
+
 
 module.exports = (env) => {
   const common = {
@@ -15,7 +15,7 @@ module.exports = (env) => {
 
     output: {
       path: path.join(__dirname, '/build'),
-      publicPath: '/',
+      publicPath: (env === 'build') ? '' : '/',
       filename: (env === 'build') ? `js/${bundleFileName}` : bundleFileName
     },
 
@@ -73,30 +73,6 @@ module.exports = (env) => {
                 ]
               }, {
                 test: /\.less$/,
-                exclude: [/(components|pages)/],
-                use: [{
-                  loader: 'style-loader'
-                }, {
-                  loader: 'css-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                // }, {
-                //   loader: 'resolve-url-loader',
-                //   options: {
-                //     absolute: true,
-                //     root: './'
-                //   }
-                }, {
-                  loader: 'autoprefixer-loader'
-                }, {
-                  loader: 'less-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                }]
-              }, {
-                test: /\.less$/,
                 include: [/(components|pages)/],
                 use: [{
                   loader: 'style-loader'
@@ -114,18 +90,30 @@ module.exports = (env) => {
                   options: {
                     sourceMap: true
                   }
-                }]                
+                }]
+              }, {
+                test: /\.less$/,
+                exclude: [/(components|pages)/],
+                use: [{
+                  loader: 'style-loader'
+                }, {
+                  loader: 'css-loader',
+                  options: {
+                    sourceMap: true
+                  }
+                }, {
+                  loader: 'autoprefixer-loader'
+                }, {
+                  loader: 'less-loader',
+                  options: {
+                    sourceMap: true
+                  }
+                }]
               }, {
                 test: /\.(jpg|svg)$/,
                 use: [
                   'url-loader'
                 ]
-              }, {
-                // test: /\.jpg$/,
-                // issuer: {
-                //     test: /\.less$/,
-                // },
-                // loader: 'img-loader'
               }
             ]
           }
@@ -146,24 +134,57 @@ module.exports = (env) => {
                     'css-loader',
                     'autoprefixer-loader'
                   ]
-                }),
-                exclude: [/node_modules?!(\/bootstrap)/]
+                })
               }, {
                 test: /\.less$/,
+                include: [/(components|pages)/],
                 use: ExtractTextPlugin.extract({
                   publicPath: '../',
                   fallback: 'style-loader',
                   use: [
-                    'css-loader',
-                    'autoprefixer-loader',
-                    'less-loader'
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        modules: true,
+                        localIdentName: '[name]-[local]',
+                        sourceMap: true
+                      }
+                    }, {
+                      loader: 'autoprefixer-loader'
+                    }, {
+                      loader: 'less-loader',
+                      options: {
+                        sourceMap: true
+                      }
+                    }
                   ]
-                }),
-                exclude: [/node_modules/]
+                })
+              }, {
+                test: /\.less$/,
+                exclude: [/(node_modules|components|pages)/],
+                use: ExtractTextPlugin.extract({
+                  publicPath: '../',
+                  fallback: 'style-loader',
+                  use: [
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        sourceMap: true
+                      }
+                    }, {
+                      loader: 'autoprefixer-loader'
+                    }, {
+                      loader: 'less-loader',
+                      options: {
+                        sourceMap: true
+                      }
+                    }
+                  ]
+                })
               }, {
                 test: /\.(jpg|svg)$/,
                 use: [
-                  'url-loader?limit=1024&name=/img/[name].[ext]',
+                  'url-loader?limit=1024&name=img/[name].[ext]',
                   'img-loader'
                 ]
               }
@@ -171,7 +192,7 @@ module.exports = (env) => {
           },
 
           plugins: [
-            new ExtractTextPlugin('./css/[name].css')
+            new ExtractTextPlugin('css/[name].css')
           ]
         }
       ]);
