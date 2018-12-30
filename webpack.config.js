@@ -3,7 +3,32 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 
-const bundleFileName = 'bundle.js';
+const bundleFileName = 'bundle.js',
+  getStylesLoadersConfig = (options) => {
+    if (typeof options === 'undefined') {
+      options = {
+        modules: false
+      };
+    }
+
+    return [
+      {
+        loader: 'css-loader',
+        options: {
+          modules: options.modules ? true : false,
+          localIdentName: '[name]-[local]',
+          sourceMap: true
+        }
+      }, {
+        loader: 'autoprefixer-loader'
+      }, {
+        loader: 'less-loader',
+        options: {
+          sourceMap: true
+        }
+      }
+    ];
+  };
 
 
 module.exports = (env) => {
@@ -74,41 +99,23 @@ module.exports = (env) => {
               }, {
                 test: /\.less$/,
                 include: [/(components|pages)/],
-                use: [{
-                  loader: 'style-loader'
-                }, {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    localIdentName: '[name]-[local]',
-                    sourceMap: true
-                  }
-                }, {
-                  loader: 'autoprefixer-loader'
-                }, {
-                  loader: 'less-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                }]
+                use: [
+                  {
+                    loader: 'style-loader'
+                  },
+                  ...getStylesLoadersConfig({
+                    modules: true
+                  })
+                ]
               }, {
                 test: /\.less$/,
                 exclude: [/(components|pages)/],
-                use: [{
-                  loader: 'style-loader'
-                }, {
-                  loader: 'css-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                }, {
-                  loader: 'autoprefixer-loader'
-                }, {
-                  loader: 'less-loader',
-                  options: {
-                    sourceMap: true
-                  }
-                }]
+                use: [
+                  {
+                    loader: 'style-loader'
+                  },
+                  ...getStylesLoadersConfig()
+                ]
               }, {
                 test: /\.(jpg|svg)$/,
                 use: [
@@ -142,21 +149,9 @@ module.exports = (env) => {
                   publicPath: '../',
                   fallback: 'style-loader',
                   use: [
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        modules: true,
-                        localIdentName: '[name]-[local]',
-                        sourceMap: true
-                      }
-                    }, {
-                      loader: 'autoprefixer-loader'
-                    }, {
-                      loader: 'less-loader',
-                      options: {
-                        sourceMap: true
-                      }
-                    }
+                    ...getStylesLoadersConfig({
+                      modules: true
+                    })
                   ]
                 })
               }, {
@@ -166,19 +161,7 @@ module.exports = (env) => {
                   publicPath: '../',
                   fallback: 'style-loader',
                   use: [
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        sourceMap: true
-                      }
-                    }, {
-                      loader: 'autoprefixer-loader'
-                    }, {
-                      loader: 'less-loader',
-                      options: {
-                        sourceMap: true
-                      }
-                    }
+                    ...getStylesLoadersConfig()
                   ]
                 })
               }, {
