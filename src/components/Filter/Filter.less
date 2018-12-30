@@ -1,0 +1,17 @@
+.select {
+  color: #000;
+  display: inline-block;
+  margin-left: 10px;
+  min-width: 200px;
+
+  &__value-container,
+  &__placeholder {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__placeholder {
+    overflow: hidden;
+    width: calc(100% - 15px);
+  }
+}

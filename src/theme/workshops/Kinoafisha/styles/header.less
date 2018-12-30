@@ -1,0 +1,142 @@
+.header {
+
+    & .logo {
+        background-image: url(../images/logo.svg);
+        color: var(--paletteColor13);
+        cursor: pointer;
+        display: block;
+        height: 50px;
+        transition: filter 0.3s ease;
+        width: 310px;
+
+        &:hover {
+            filter: brightness(0.6) sepia(1) hue-rotate(-10deg) saturate(5);
+        }
+    }
+
+    & .filters {
+        display: flex;
+        justify-content: center;
+        margin: 0 -15px;
+
+        & .filter {
+            background-size: 100%;
+            box-shadow: 0 1px 2px var(--paletteColor1);
+            cursor: pointer;
+            height: 170px;
+            margin: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: outline 0.3s ease, transform 0.3s ease;
+            width: 100%;
+
+            &:before {
+                background: linear-gradient(
+                    to top,
+                    black,
+                    cubic-bezier(0.48, 0.46, 0.46, 0.68),
+                    transparent
+                );
+                bottom: 0;
+                content: '';
+                height: 55px;
+                left: 0;
+                position: absolute;
+                right: 0;
+            }
+
+            &:hover {
+                transform: translateY(-3px);
+            }
+
+            &:active {
+                outline: 2px solid var(--paletteColor11);
+            }
+
+            &:first-child {
+                background-image: url('../images/filter-1.jpg');
+            }
+
+            &:nth-child(2) {
+                background-image: url('../images/filter-2.jpg');
+            }
+
+            &:last-child {
+                background-image: url('../images/filter-3.jpg');
+            }
+
+            & span {
+                bottom: 8px;
+                color: var(--paletteColor13);
+                font-size: 24px;
+                font-weight: 700;
+                position: absolute;
+                right: 18px;
+                text-align: right;
+            }
+        }
+
+        & .active {
+            outline: 2px solid var(--paletteColor13);
+        }
+    }
+
+    @media (--phonePortrait), (--phoneLandscape) {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        & .filters {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            & .filter {
+                width: 100%;
+
+                &:not(:last-child) {
+                    margin-right: 0;
+                    margin-bottom: 15px;
+                }
+
+                & span {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+
+    @media (--phonePortrait) {
+        & .logo {
+            width: 320px;
+            height: 50px;
+            margin-left: 30px;
+        }
+    }
+
+    @media (--phoneLandscape) {
+        & .filters {
+            & .filter {
+                max-width: 100%;
+                background-position: center -70px;
+
+                & span {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+    @media (--tabletPortrait) {
+        & .filters {
+            & .filter {
+                & span {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
