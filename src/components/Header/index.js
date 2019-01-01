@@ -12,7 +12,7 @@ export default function Header(props) {
   });
 
   return (
-    <header className={`header ${styles['container']}`}>
+    <header className={`header ${styles['content']}`}>
       <div className='container'>
         <div className={styles['top-content']}>
           <Link to='/' className='logo' />

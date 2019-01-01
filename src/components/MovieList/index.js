@@ -55,7 +55,7 @@ export default function MovieList({movies}) {
       }
       </ul>
     :
-      <h6>
+      <h6 className={styles['no-result']}>
         Ничего не найдено
       </h6>
 }

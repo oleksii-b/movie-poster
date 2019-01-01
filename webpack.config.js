@@ -24,6 +24,9 @@ const bundleFileName = 'bundle.js',
       }, {
         loader: 'less-loader',
         options: {
+          paths: [
+            path.resolve(__dirname, 'src/theme')
+          ],
           sourceMap: true
         }
       }
@@ -52,6 +55,9 @@ module.exports = (env) => {
     ],
 
     resolve: {
+      alias: {
+        atoms: path.resolve(__dirname, 'src/theme/')
+      },
       modules: ['node_modules', 'src'],
       extensions: ['.js', '.css', '.less']
     },

@@ -10,7 +10,6 @@
     "bootstrap": "^3.3.7",
     "promise-polyfill": "7.1.0",
     "react": "16.4.0",
-    "react-bootstrap": "^0.32.1",
     "react-dom": "16.4.0",
     "react-router-dom": "^4.2.2",
     "react-select": "^2.1.2",
