@@ -1,25 +1,7 @@
-import React, {Fragment, Component} from 'react';
-import Select from 'react-select';
+import React, {Component} from 'react';
 
-import styles from './Filter.less';
+import filter from './filter';
 
-
-const genres = [
-  'Мультфильм',
-  'Фантастика',
-  'Драма',
-  'Мелодрамма',
-  'Боевик',
-  'Криминал',
-  'Триллер',
-  'Фэнтези',
-  'Комедия'
-].map((genre) => {
-  return {
-    value: genre,
-    label: genre
-  }
-});
 
 export default class Filter extends Component {
   state = {
@@ -27,7 +9,6 @@ export default class Filter extends Component {
   }
 
   onSelectChange = (selectedOptions) => {
-    // props.filterMovies(selectedOptions);
     this.setState({
       selectedOptions
     }, () => {
@@ -38,22 +19,9 @@ export default class Filter extends Component {
   }
 
   render = () => {
-    return (
-      <Fragment>
-        Фильтровать по жанрам:
-
-        <Select
-          className={styles['select']}
-          classNamePrefix={styles['select']}
-          isMulti={true}
-          isSearchable={false}
-          noOptionsMessage={() => 'Выбраны все жанры'}
-          options={genres}
-          onChange={this.onSelectChange}
-          value={this.state.selectedOptions}
-          placeholder='Выберете жанр'
-        />
-      </Fragment>
-    )
+    return filter({
+      onSelectChange: this.onSelectChange,
+      value: this.state.selectedOptions
+    });
   }
 }

@@ -1,16 +1,17 @@
 import React, {Component, Fragment} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import Header from './components/Header';
-import MovieListPage from './pages/MovieList';
-import SearchMoviesPage from './pages/SearchMovies';
-import NotFoundPage from './pages/NotFound';
+import {BASE_PATH} from 'utils/config';
+import Header from 'components/Header';
+import Movies from 'routes/Movies';
+import SearchResults from 'routes/SearchResults';
+import NotFound from 'routes/NotFound';
 
 
 export default class App extends Component {
   render = () => {
     return (
-      <div className='app'>
+      <Fragment>
         <Route
           path='/'
           component={Header}
@@ -18,35 +19,41 @@ export default class App extends Component {
 
         <main className='main-content container'>
         {
-          (location.pathname.substr(1)).match(/^movie-poster/)
+          location.pathname.match(new RegExp(`^${BASE_PATH}`))
           ?
             <Switch>
               <Redirect
                 exact
                 from='/'
-                to='/search'
+                to='/movies'
               />
 
               <Route
                 exact
                 path='/search'
-                component={SearchMoviesPage}
+                component={SearchResults}
               />
 
               <Route
                 path='/movies/:category?'
-                component={MovieListPage}
+                component={Movies}
               />
 
               <Route
-                component={NotFoundPage}
+                component={NotFound}
               />
             </Switch>
           :
-            <NotFoundPage />
+            location.pathname === '/'
+            ?
+              <Redirect
+                to='/search'
+              />
+            :
+              <NotFoundPage />
         }
         </main>
-      </div>
+      </Fragment>
     );
   }
 }

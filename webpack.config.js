@@ -3,35 +3,36 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 
-const bundleFileName = 'bundle.js',
-  getStylesLoadersConfig = (options) => {
-    if (typeof options === 'undefined') {
-      options = {
-        modules: false
-      };
-    }
+const bundleFileName = 'bundle.js';
+const moduleSrc = /components|routes/;
+const getStylesLoadersConfig = (options) => {
+  if (options === void(0)) {
+    options = {
+      modules: false
+    };
+  }
 
-    return [
-      {
-        loader: 'css-loader',
-        options: {
-          modules: options.modules ? true : false,
-          localIdentName: '[name]-[local]',
-          sourceMap: true
-        }
-      }, {
-        loader: 'autoprefixer-loader'
-      }, {
-        loader: 'less-loader',
-        options: {
-          paths: [
-            path.resolve(__dirname, 'src/theme')
-          ],
-          sourceMap: true
-        }
+  return [
+    {
+      loader: 'css-loader',
+      options: {
+        modules: options.modules ? true : false,
+        localIdentName: '[name]-[local]',
+        sourceMap: true
       }
-    ];
-  };
+    }, {
+      loader: 'autoprefixer-loader'
+    }, {
+      loader: 'less-loader',
+      options: {
+        paths: [
+          path.resolve(__dirname, 'src/theme')
+        ],
+        sourceMap: true
+      }
+    }
+  ];
+};
 
 
 module.exports = (env) => {
@@ -55,11 +56,15 @@ module.exports = (env) => {
     ],
 
     resolve: {
-      alias: {
-        atoms: path.resolve(__dirname, 'src/theme/')
-      },
-      modules: ['node_modules', 'src'],
-      extensions: ['.js', '.css', '.less']
+      modules: [
+        'node_modules',
+        'src'
+      ],
+      extensions: [
+        '.js',
+        '.css',
+        '.less'
+      ]
     },
 
     module: {
@@ -67,7 +72,7 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: [/node_modules/],
+          exclude: /node_modules/,
           options: {
             presets: [
               'env',
@@ -76,6 +81,14 @@ module.exports = (env) => {
               'stage-0'
             ]
           }
+        }, {
+          test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+          exclude: /(?:node_modules?!\/bootstrap)|theme/,
+          loader: (env === 'build') ? 'url-loader?limit=1024&name=fonts/[name].[ext]' : 'file-loader'
+        }, {
+          test: /\.(jpg|svg)$/,
+          exclude: /node_modules/,
+          loader: (env === 'build') ? 'url-loader?limit=10000&name=img/[name].[ext]' : 'file-loader'
         }
       ]
     }
@@ -97,6 +110,7 @@ module.exports = (env) => {
             rules: [
               {
                 test: /\.css$/,
+                exclude: /node_modules?!\/bootstrap/,
                 use: [
                   'style-loader',
                   'css-loader',
@@ -104,7 +118,7 @@ module.exports = (env) => {
                 ]
               }, {
                 test: /\.less$/,
-                include: [/(components|pages)/],
+                include: moduleSrc,
                 use: [
                   {
                     loader: 'style-loader'
@@ -115,17 +129,15 @@ module.exports = (env) => {
                 ]
               }, {
                 test: /\.less$/,
-                exclude: [/(components|pages)/],
+                exclude: [
+                  moduleSrc,
+                  /node_modules/
+                ],
                 use: [
                   {
                     loader: 'style-loader'
                   },
                   ...getStylesLoadersConfig()
-                ]
-              }, {
-                test: /\.(jpg|svg)$/,
-                use: [
-                  'url-loader'
                 ]
               }
             ]
@@ -150,7 +162,7 @@ module.exports = (env) => {
                 })
               }, {
                 test: /\.less$/,
-                include: [/(components|pages)/],
+                include: moduleSrc,
                 use: ExtractTextPlugin.extract({
                   publicPath: '../',
                   fallback: 'style-loader',
@@ -162,7 +174,10 @@ module.exports = (env) => {
                 })
               }, {
                 test: /\.less$/,
-                exclude: [/(node_modules|components|pages)/],
+                exclude: [
+                  moduleSrc,
+                  /node_modules/
+                ],
                 use: ExtractTextPlugin.extract({
                   publicPath: '../',
                   fallback: 'style-loader',
@@ -171,11 +186,11 @@ module.exports = (env) => {
                   ]
                 })
               }, {
-                test: /\.(jpg|svg)$/,
-                use: [
-                  'url-loader?limit=1024&name=img/[name].[ext]',
-                  'img-loader'
-                ]
+                // test: /\.(jpg|svg)$/,
+                // use: [
+                //   'url-loader?limit=1024&name=img/[name].[ext]',
+                //   'img-loader'
+                // ]
               }
             ]
           },

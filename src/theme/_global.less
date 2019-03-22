@@ -1,50 +1,30 @@
 * {
-  outline: 0;
+    outline: 0;
 }
 
 body {
-  background-color: #111;
+    background-color: #111;
 
-  /* Зачаровать шрифты */
-  font-smoothing: antialiased;
-  font-variant-ligatures: none;
+    // Зачаровать шрифты 
+    font-smoothing: antialiased;
+    font-variant-ligatures: none;
 
-  /**
-   * Фикс для мобильного сафари, чтобы при поворотах он не склеивал и не терял контент.
-   * Префиксы установлены вручную, так как на момент 13.03.2018
-   * autoprefixer этого не делал автоматически.
-   */
-  -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+    // Фикс для мобильного сафари, чтобы при поворотах он не склеивал и не терял контент.
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 
-  min-height: 100vh;
-  // user-select: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+    min-height: 100vh;
+    user-select: none;
 }
 
 img {
-  display: inline-block;
-  height: auto;
-  max-width: 100%;
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.container {
-  max-width: 1152px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.main-content {
-  color: #fff;
+    list-style-type: none;
+    padding: 0;
 }

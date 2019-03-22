@@ -1,13 +1,78 @@
-.content {
-  background: indianred;
-  border-bottom: 5px solid #111;
-  padding: 35px 0;
-  margin-bottom: 30px;
+.container {
+    background: indianred;
+    border-bottom: 5px solid #111;
+    padding: 35px 0;
+    margin-bottom: 30px;
 }
 
-.top-content {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
+.topContent {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.logo {
+    color: #eee;
+    cursor: pointer;
+    display: block;
+    height: 50px;
+    transition: filter 0.3s ease;
+    width: 310px;
+
+    &:hover {
+        filter: brightness(0.6) sepia(1) hue-rotate(-10deg) saturate(5);
+    }
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    margin: 0 -15px;
+}
+
+.filter {
+    background-size: 100%;
+    box-shadow: 0 1px 2px #999;
+    cursor: pointer;
+    height: 170px;
+    margin: 15px;
+    overflow: hidden;
+    position: relative;
+    transition: outline 0.3s ease, transform 0.3s ease;
+    width: 100%;
+
+    &.active {
+        outline: 2px solid #eee;
+    }
+
+    &:before {
+        background: linear-gradient(to top, #111, transparent);
+        bottom: 2px;
+        content: '';
+        height: 55px;
+        left: 2px;
+        position: absolute;
+        right: 2px;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+
+    &:active {
+        outline: 2px solid #ddd;
+    }
+}
+
+.filterTitle {
+    bottom: 8px;
+    color: #eee;
+    font-size: 24px;
+    font-weight: 700;
+    left: 10px;
+    line-height: 1;
+    position: absolute;
+    right: 10px;
+    text-align: center;
 }

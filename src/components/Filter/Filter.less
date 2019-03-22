@@ -1,17 +1,69 @@
+@import 'bootstrap/less/variables.less';
+@import 'bootstrap/less/mixins.less';
+
+
 .select {
-  color: #000;
-  display: inline-block;
-  margin-left: 10px;
-  min-width: 200px;
+    background-color: @input-bg;
+    background-image: none;
+    border-radius: @input-border-radius;
+    border: 1px solid @input-border;
+    color: @input-color;
+    font-size: @font-size-base;
+    height: @input-height-base;
+    line-height: @line-height-base;
 
-  &__value-container,
-  &__placeholder {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    color: #000;
+    display: inline-block;
+    margin-left: 10px;
+    min-width: 200px;
 
-  &__placeholder {
-    overflow: hidden;
-    width: calc(100% - 15px);
-  }
+    &__control {
+        display: flex;
+        height: @input-height-base;
+    }
+
+    &__value-container,
+    &__placeholder {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__placeholder {
+        overflow: hidden;
+        width: calc(100% - 15px);
+    }
+
+    &__menu {
+        .box-shadow(0 6px 12px rgba(0, 0, 0, .175));
+
+        background-clip: padding-box;
+        background-color: @dropdown-bg;
+        border-radius: @border-radius-base;
+        border: 1px solid @dropdown-border;
+        border: 1px solid @dropdown-fallback-border; // IE8 fallback
+        font-size: @font-size-base;
+        left: 0;
+        list-style: none;
+        margin: 3px 0 0; // override default ul
+        min-width: 100%;
+        padding: 3px 0;
+        position: absolute;
+        top: 100%;
+        z-index: @zindex-dropdown;
+    }
+
+    &__option {
+        display: block;
+        padding: 3px 10px;
+        clear: both;
+        font-weight: normal;
+        line-height: @line-height-base;
+        color: @dropdown-link-color;
+
+        &:hover,
+        &:focus {
+            background-color: @dropdown-link-hover-bg;
+            color: @dropdown-link-hover-color;
+        }
+    }
 }

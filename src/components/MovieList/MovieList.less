@@ -1,119 +1,83 @@
-.movie-list {
-  margin: 0 -15px;
+.container {
+    margin: 0 -15px;
+}
 
-  &__item {
+.itemContainer {
     display: inline-block;
     margin-bottom: 50px;
     min-width: 250px;
     padding: 0 15px;
     width: 25%;
-  }
 }
 
-.movie {
-  margin: auto;
-  transition: transform 0.3s ease;
-  width: 220px;
+.item {
+    margin: auto;
+    transition: transform 0.3s ease;
+    width: 220px;
 
-  &:hover {
-    transform: translateY(-3px);
-  }
+    &:hover {
+        transform: translateY(-3px);
+    }
 
-  & .selectedPoster {
-    box-shadow: 0px 0 6px #eee;
-  }
+    & .selectedPoster {
+        box-shadow: 0px 0 6px #eee;
+    }
 }
 
-.movie-info {
-  color: var(--paletteColor13);
-  display: flex;
-  justify-content: space-between;
+.itemInfo {
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
 }
 
-.poster {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 1px 2px #000;
-  cursor: pointer;
-  height: 340px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  position: relative;
-  transition: box-shadow 0.3s ease;
+.itemPoster {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 0 1px 2px #000;
+    cursor: pointer;
+    height: 340px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.3s ease;
 
-  &:before {
-    background: linear-gradient(
-      black,
-      cubic-bezier(0.48, 0.46, 0.46, 0.68),
-      to top,
-      transparent
-    );
-    bottom: 0;
-    content: '';
-    height: 55px;
-    left: 0;
-    position: absolute;
-    right: 0;
-  }
+    &:before {
+        background: linear-gradient(to top, #111, transparent);
+        bottom: 0;
+        content: '';
+        height: 55px;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
 }
 
-.genre {
-  align-items: center;
-  background: #345;
-  color: #eee;
-  display: flex;
-  font-size: 20px;
-  font-weight: 500;
-  justify-content: center;
-  padding: 5px 10px 8px;
-  width: 100%;
+.itemGenre {
+    align-items: center;
+    background: #345;
+    color: #eee;
+    display: flex;
+    font-size: 20px;
+    font-weight: 500;
+    justify-content: center;
+    padding: 5px 10px 8px;
+    width: 100%;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1;
-  margin: 0;
+.itemTitle {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
 }
 
-.rating {
-  font-size: 20px;
-  margin-left: 10px;
-  white-space: nowrap;
+.itemRating {
+    font-size: 20px;
+    margin-left: 10px;
+    white-space: nowrap;
 }
 
-.no-result {
-  font-size: 20px;
-  text-align: center;
-}
-
-
-@media (--phonePortrait), (--phoneLandscape) {
-  justify-content: space-between;
-  padding-right: 14px;
-  padding-left: 14px;
-
-  .movie {
-    margin-bottom: 40px;
-    margin-right: 0;
-    width: 130px;
-  }
-
-  .poster {
-    height: 196px;
-    margin-bottom: 5px;
-  }
-
-  .genre {
-    font-size: 14px;
-  }
-
-  .rating {
-    font-size: 24px;
-  }
-
-  .title {
-    font-size: 16px;
+.noResult {
+    font-size: 20px;
     text-align: center;
-  }
 }
